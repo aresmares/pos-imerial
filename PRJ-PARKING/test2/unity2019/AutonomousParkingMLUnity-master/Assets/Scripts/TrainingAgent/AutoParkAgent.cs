@@ -18,14 +18,14 @@ public class AutoParkAgent : Agent
     private SimulationManager _simulationManager;
     private float[] _lastActions;
     private GameObject _nearestLot;
-    private Rewards _rewards;
+    private Rewards2 _rewards;
     public GameObject manager;
     
     public override void Initialize()
     {
         _rigitBody = GetComponent<Rigidbody>();
         _controller = GetComponent<CarController>();
-        _rewards = GetComponent<Rewards>();
+        _rewards = GetComponent<Rewards2>();
 
         _simulationManager = manager.GetComponent<SimulationManager>();
         // _simulationManager.InitializeSimulation();
@@ -46,15 +46,11 @@ public class AutoParkAgent : Agent
         _controller.CurrentBrakeTorque = vectorAction[2];
 
         // Apply Fuzzy rewards per action taken
-        // if (_nearestLot != null)
-        // {
-        //     float fuzzyAlignment = _rewards.FuzzyDistanceAlignmentReward(gameObject,_nearestLot);
-        //     float fuzzyAcceleration = _rewards.FuzzyDistanceAccelerationReward(gameObject,_nearestLot);
-        //     float fuzzyVelocity = _rewards.FuzzyVelocityReward(gameObject,_nearestLot);
-        //     AddReward(fuzzyAlignment);
-        //     AddReward(fuzzyAcceleration);
-        //     AddReward(fuzzyVelocity);
-        // }
+        if (_nearestLot != null)
+        {
+            AddReward(_rewards.FuzzyEvaluate(gameObject,_nearestLot));
+
+        }
     }
 
     public override void Heuristic(float[] actionsOut)
@@ -70,8 +66,8 @@ public class AutoParkAgent : Agent
             other.gameObject.CompareTag("tree"))
         {
             // // Collision Reward
-            // AddReward(_rewards.CollisionReward());
-            // EndEpisode();
+            AddReward(_rewards.CollisionReward());
+            EndEpisode();
         }
     }
 
@@ -79,7 +75,7 @@ public class AutoParkAgent : Agent
     {
         if (_lastActions != null && _simulationManager.InitComplete)
         {
-            _nearestLot = GameObject.Find("EndPosition");
+            _nearestLot = _simulationManager.endPosition;
             Vector3 dirToTarget = (_nearestLot.transform.position - transform.position).normalized;
             sensor.AddObservation(transform.position.normalized);
             sensor.AddObservation(this.transform.InverseTransformPoint(_nearestLot.transform.position));
@@ -88,9 +84,9 @@ public class AutoParkAgent : Agent
             sensor.AddObservation(transform.forward);
             sensor.AddObservation(transform.right);
             // Alightnment reward
-            // AddReward(
-            //     _rewards.VelocityAlignmentReward(dirToTarget,_rigitBody.velocity)
-            //     );
+            AddReward(
+                _rewards.VelocityAlignmentReward(dirToTarget,_rigitBody.velocity)
+                );
         }
         else
         {

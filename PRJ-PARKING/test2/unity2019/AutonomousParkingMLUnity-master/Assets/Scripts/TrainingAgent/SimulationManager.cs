@@ -8,10 +8,11 @@ using Random = UnityEngine.Random;
 
 public class SimulationManager : MonoBehaviour
 {
-   GameObject endPosition;
    [SerializeField] private List<ParkingLot> parkingLots;
    [SerializeField] private List<GameObject> carPrefabs;
    [SerializeField] private AutoParkAgent agent;
+
+   public GameObject endPosition;
 
    private List<GameObject> parkedCars;
    
@@ -34,13 +35,6 @@ public class SimulationManager : MonoBehaviour
       _initComplete = false;
       Debug.Log("start");
       StartCoroutine(OccupyParkingSlotsWithRandomCars());
-       
-      // yield new WaitForSeconds(2);
-
-      // EndPositionFinder targetPosition = new EndPositionFinder();
-      // Init end position
-
-
    }
 
    public void RepositionAgentRandom()
@@ -99,16 +93,10 @@ public class SimulationManager : MonoBehaviour
 
       ParkingLot randomSpot = GetRandomEmptyParkingSlot();
       randomSpot.IsGoal = true;
-      // Debug.Log(randomSpot.name);
 
-      GameObject.Find("EndPosition").transform.position = randomSpot.transform.position ;
-      // yield return new WaitForSeconds(1);
-
+      endPosition.transform.position = randomSpot.transform.position;
       PositionAtSafePlace(randomSpot.gameObject);
 
-
-      // For move to goal 
-      // NoAgentControl moveTo = new NoAgentControl();
       _initComplete = true;
       
    }
@@ -134,10 +122,10 @@ public class SimulationManager : MonoBehaviour
          // Vector3 temp = 
          // Vector3 temp = nearestLotGameObject.transform.position + new Vector3(nearestLotGameObject.transform.position-6, 0, -4);
 
-         // Vector3 newPosition = nearestLotGameObject.transform.TransformPoint(Random.Range(-4, -8) , 0, Random.Range(2, 6));
+         Vector3 newPosition = nearestLotGameObject.transform.TransformPoint(Random.Range(-4, -8) , 0, Random.Range(2, 6));
 
-         // agent.transform.position = newPosition ;
-         // agent.transform.rotation = Quaternion.Euler(0,Random.Range(165, 195),0);
+         agent.transform.position = newPosition ;
+         agent.transform.rotation = Quaternion.Euler(0,Random.Range(165, 195),0);
 
  
       }

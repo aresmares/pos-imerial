@@ -3200,6 +3200,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e2eef035adcc2546b17789d4bd567d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  StartPosition: {fileID: 1567302723}
   TargetPosition: {fileID: 948110044}
 --- !u!114 &777550521
 MonoBehaviour:
@@ -7127,9 +7128,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 155ddd5174697a147802b54769908094, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  endPosition: {fileID: 948110043}
-  agentPrefab: {fileID: 2369092323293914956, guid: e43555bd90b0a42db8d71fdd385969b9,
-    type: 3}
+  agentParameters:
+    maxStep: 0
+  hasUpgradedFromAgentParameters: 1
+  MaxStep: 0
+  manager: {fileID: 0}
 --- !u!1 &1848302748
 GameObject:
   m_ObjectHideFlags: 0

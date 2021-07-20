@@ -5035,7 +5035,7 @@ PrefabInstance:
     - target: {fileID: 6581781915845340929, guid: e43555bd90b0a42db8d71fdd385969b9,
         type: 3}
       propertyPath: m_BrainParameters.VectorObservationSize
-      value: 3
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 6581781915845340929, guid: e43555bd90b0a42db8d71fdd385969b9,
         type: 3}
@@ -8208,6 +8208,11 @@ PrefabInstance:
       propertyPath: agent
       value: 
       objectReference: {fileID: 803176776}
+    - target: {fileID: 1649890904149939576, guid: e7f73706beb5dd14cb408fe5182b063e,
+        type: 3}
+      propertyPath: endPosition
+      value: 
+      objectReference: {fileID: 833980181}
     - target: {fileID: 1766356590958229342, guid: e7f73706beb5dd14cb408fe5182b063e,
         type: 3}
       propertyPath: agent
@@ -8431,6 +8436,7 @@ MonoBehaviour:
   - {fileID: 1070480692990391811, guid: 028d8e70063ca492eba30ebd4e34078c, type: 3}
   - {fileID: 8558710074590737995, guid: bfdc92263b5574f5aaf327ce94891be5, type: 3}
   agent: {fileID: 803176776}
+  endPosition: {fileID: 833980181}
 --- !u!114 &1252995483
 MonoBehaviour:
   m_ObjectHideFlags: 0
